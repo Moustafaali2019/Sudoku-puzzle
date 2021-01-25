@@ -33,8 +33,8 @@ class AndokuClass:
         [72, 73, 74, 75, 76, 77, 78, 79, 80],
     ]
 
-    """initial value"""
 
+    """initial value"""
     def __init__(self, listsudoku):
         for _ in range(81):
             self.andukulist.append(Cellclass())
@@ -78,7 +78,7 @@ class AndokuClass:
     def rowlistnotsolved(self, index):
         blocks = self.rowlist(index)
         for block in blocks:
-            if self.andukulist[block].value == 0:
+            if self.andukulist[block].value != 0:
                 blocks.remove(block)
         return blocks
 
@@ -104,7 +104,7 @@ class AndokuClass:
     def collistnotsolved(self, index):
         blocks = self.collist(index)
         for block in blocks:
-            if self.andukulist[block].value == 0:
+            if self.andukulist[block].value != 0:
                 blocks.remove(block)
         return blocks
 
@@ -128,7 +128,7 @@ class AndokuClass:
     def boxlistnotsolved(self, index):
         blocks = self.boxlist(index)
         for block in blocks:
-            if self.andukulist[block].value == 0:
+            if self.andukulist[block].value != 0:
                 blocks.remove(block)
         return blocks
 
@@ -211,7 +211,6 @@ class AndokuClass:
         for checkvalue in range(1, 10):
             for index in range(81):
                 if self.andukulist[index].value == 0 and \
-                        self.andukulist[index].value != checkvalue and \
                         (not self.isfoundrow(index, checkvalue)) and \
                         (not self.isfoundcol(index, checkvalue)) and \
                         (not self.isfoundbox(index, checkvalue)):
@@ -348,7 +347,8 @@ class AndokuClass:
         sumprob = 0
         for index in range(81):
             for prob in range(9):
-                sumprob += self.andukulist[index].prob[prob]
+                if self.andukulist[index].value == 0:
+                    sumprob += 1
         if sumprob == 0:
             print("solved")
             # grinning face
@@ -421,17 +421,17 @@ if __name__ == "__main__":
     #               0, 0, 0, 0, 0, 0, 4, 7, 5,
     #               0, 8, 0, 0, 5, 1, 0, 0, 0]
     """testcase two (solved :) )"""
-    # listsudoku = [0, 8, 0, 0, 6, 2, 0, 0, 0,
-    #               0, 9, 0, 0, 5, 0, 0, 0, 8,
-    #               0, 3, 0, 0, 0, 0, 0, 0, 5,
-    #               0, 0, 0, 0, 4, 8, 0, 9, 0,
-    #               0, 0, 0, 0, 0, 7, 0, 4, 0,
-    #               2, 0, 5, 0, 0, 0, 0, 6, 0,
-    #               3, 0, 7, 1, 0, 0, 0, 0, 0,
-    #               0, 0, 4, 2, 0, 0, 3, 0, 0,
-    #               0, 0, 0, 7, 0, 0, 9, 0, 4]
+    listsudoku = [0, 8, 0, 0, 6, 2, 0, 0, 0,
+                  0, 9, 0, 0, 5, 0, 0, 0, 8,
+                  0, 3, 0, 0, 0, 0, 0, 0, 5,
+                  0, 0, 0, 0, 4, 8, 0, 9, 0,
+                  0, 0, 0, 0, 0, 7, 0, 4, 0,
+                  2, 0, 5, 0, 0, 0, 0, 6, 0,
+                  3, 0, 7, 1, 0, 0, 0, 0, 0,
+                  0, 0, 4, 2, 0, 0, 3, 0, 0,
+                  0, 0, 0, 7, 0, 0, 9, 0, 4]
 
-    """testcase three (solved :) )"""
+    """testcase three (solved :( )"""
     # listsudoku = [2, 7, 0, 0, 6, 0, 0, 5, 0,
     #               3, 0, 0, 8, 0, 0, 0, 1, 0,
     #               8, 0, 0, 5, 0, 0, 0, 7, 0,
@@ -442,16 +442,16 @@ if __name__ == "__main__":
     #               0, 0, 0, 0, 0, 5, 7, 0, 6,
     #               0, 0, 1, 0, 0, 4, 9, 0, 5]
 
-    """testcase four (solved :) )"""
-    listsudoku = [8, 0, 0, 0, 0, 0, 0, 0, 0,
-                  0, 0, 3, 6, 0, 0, 0, 0, 0,
-                  0, 7, 0, 0, 9, 0, 2, 0, 0,
-                  0, 5, 0, 0, 0, 7, 0, 0, 0,
-                  0, 0, 0, 0, 4, 5, 7, 0, 0,
-                  0, 0, 0, 1, 0, 0, 0, 3, 0,
-                  0, 0, 1, 0, 0, 0, 0, 6, 8,
-                  0, 0, 8, 5, 0, 0, 0, 1, 0,
-                  0, 9, 0, 0, 0, 0, 4, 0, 0]
+    """testcase four (not solved :( )"""
+    # listsudoku = [8, 0, 0, 0, 0, 0, 0, 0, 0,
+    #               0, 0, 3, 6, 0, 0, 0, 0, 0,
+    #               0, 7, 0, 0, 9, 0, 2, 0, 0,
+    #               0, 5, 0, 0, 0, 7, 0, 0, 0,
+    #               0, 0, 0, 0, 4, 5, 7, 0, 0,
+    #               0, 0, 0, 1, 0, 0, 0, 3, 0,
+    #               0, 0, 1, 0, 0, 0, 0, 6, 8,
+    #               0, 0, 8, 5, 0, 0, 0, 1, 0,
+    #               0, 9, 0, 0, 0, 0, 4, 0, 0]
 
     """In 2012, Finnish mathematician Arto Inkala claimed to have created the 
         "World's Hardest Sudoku". According to the British newspaper The Telegraph, 
