@@ -33,8 +33,8 @@ class AndokuClass:
         [72, 73, 74, 75, 76, 77, 78, 79, 80],
     ]
 
-
     """initial value"""
+
     def __init__(self, listsudoku):
         for _ in range(81):
             self.andukulist.append(Cellclass())
@@ -85,8 +85,9 @@ class AndokuClass:
     """return true if the row has the value equal to the checkvalue"""
 
     def isfoundrow(self, index, checkedvalue):
-        for n in range(int(index / 9) * 9, int(index / 9) * 9 + 9):
-            if self.andukulist[n].value == checkedvalue:
+        listrow = self.rowlist(index)
+        for ind in listrow:
+            if self.andukulist[ind].value == checkedvalue:
                 return True
         return False
 
@@ -109,8 +110,9 @@ class AndokuClass:
         return blocks
 
     def isfoundcol(self, index, checkedvalue):
-        for n in range(index % 9, 81, 9):
-            if self.andukulist[n].value == checkedvalue:
+        listcol = self.collist(index)
+        for ind in listcol:
+            if self.andukulist[ind].value == checkedvalue:
                 return True
         return False
 
@@ -421,28 +423,48 @@ if __name__ == "__main__":
     #               0, 0, 0, 0, 0, 0, 4, 7, 5,
     #               0, 8, 0, 0, 5, 1, 0, 0, 0]
     """testcase two (solved :) )"""
-    listsudoku = [0, 8, 0, 0, 6, 2, 0, 0, 0,
-                  0, 9, 0, 0, 5, 0, 0, 0, 8,
-                  0, 3, 0, 0, 0, 0, 0, 0, 5,
-                  0, 0, 0, 0, 4, 8, 0, 9, 0,
-                  0, 0, 0, 0, 0, 7, 0, 4, 0,
-                  2, 0, 5, 0, 0, 0, 0, 6, 0,
-                  3, 0, 7, 1, 0, 0, 0, 0, 0,
-                  0, 0, 4, 2, 0, 0, 3, 0, 0,
-                  0, 0, 0, 7, 0, 0, 9, 0, 4]
+    # listsudoku = [0, 8, 0, 0, 6, 2, 0, 0, 0,
+    #               0, 9, 0, 0, 5, 0, 0, 0, 8,
+    #               0, 3, 0, 0, 0, 0, 0, 0, 5,
+    #               0, 0, 0, 0, 4, 8, 0, 9, 0,
+    #               0, 0, 0, 0, 0, 7, 0, 4, 0,
+    #               2, 0, 5, 0, 0, 0, 0, 6, 0,
+    #               3, 0, 7, 1, 0, 0, 0, 0, 0,
+    #               0, 0, 4, 2, 0, 0, 3, 0, 0,
+    #               0, 0, 0, 7, 0, 0, 9, 0, 4]
 
-    """testcase three (solved :( )"""
-    # listsudoku = [2, 7, 0, 0, 6, 0, 0, 5, 0,
+    """testcase three (solved :) )"""
+    # listsudoku = [2, 7, 0, 0, 0, 0, 0, 5, 0,
     #               3, 0, 0, 8, 0, 0, 0, 1, 0,
     #               8, 0, 0, 5, 0, 0, 0, 7, 0,
     #               0, 4, 6, 0, 0, 0, 1, 0, 0,
     #               0, 0, 0, 4, 7, 0, 0, 0, 0,
-    #               0, 0, 0, 0, 2, 0, 0, 0, 0,
+    #               0, 0, 0, 0, 2, 0, 3, 0, 4,
     #               0, 8, 7, 0, 0, 9, 0, 0, 0,
     #               0, 0, 0, 0, 0, 5, 7, 0, 6,
-    #               0, 0, 1, 0, 0, 4, 9, 0, 5]
+    #               0, 0, 1, 0, 0, 4, 0, 0, 5]
+    """testcase four (solved :) )"""
+    # listsudoku = [2, 7, 0, 0, 0, 0, 0, 5, 0,
+    #               3, 0, 0, 8, 0, 0, 0, 1, 0,
+    #               8, 0, 0, 5, 0, 0, 0, 7, 0,
+    #               0, 4, 6, 0, 0, 0, 1, 0, 0,
+    #               0, 0, 0, 4, 7, 0, 0, 0, 0,
+    #               0, 0, 0, 0, 2, 0, 3, 0, 4,
+    #               0, 8, 7, 0, 0, 9, 0, 0, 0,
+    #               0, 0, 0, 0, 0, 5, 7, 0, 6,
+    #               0, 0, 1, 0, 0, 4, 0, 0, 5]
 
-    """testcase four (not solved :( )"""
+    listsudoku = [0, 0, 0, 6, 4, 1, 0, 0, 0,
+                  1, 2, 0, 0, 0, 0, 0, 0, 3,
+                  0, 8, 0, 0, 0, 0, 4, 5, 0,
+                  8, 0, 0, 9, 6, 0, 0, 0, 0,
+                  3, 0, 1, 0, 0, 4, 0, 0, 0,
+                  0, 0, 0, 0, 0, 0, 3, 2, 9,
+                  0, 4, 8, 1, 0, 0, 0, 0, 0,
+                  0, 0, 7, 3, 9, 2, 0, 0, 0,
+                  0, 0, 0, 0, 0, 0, 2, 1, 5]
+
+    """testcase five (not solved :( )"""
     # listsudoku = [8, 0, 0, 0, 0, 0, 0, 0, 0,
     #               0, 0, 3, 6, 0, 0, 0, 0, 0,
     #               0, 7, 0, 0, 9, 0, 2, 0, 0,
